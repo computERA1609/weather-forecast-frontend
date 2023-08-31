@@ -2,9 +2,9 @@
   <div>
   <div id="app">
     <h1>Weather Forecast Tracking</h1>
-    <input v-model="cityInput" placeholder="Enter city" />
+    <input v-model="cityInput" placeholder="Enter city name" />
     <button @click="getWeather">Get Weather</button>
-    
+        
     <Weather v-if="weather" :city="cityInput" />
    
   </div>
@@ -30,6 +30,7 @@
 
 <script>
 import Weather from './components/WeatherForecast.vue';
+
 
 export default {
   name: 'App',
@@ -62,12 +63,19 @@ export default {
           if (data.success) {
             this.getHistory()
           }
+          this.resetInput()
+        
 
         } catch (error) {
           console.error('An error occurred:', error);
         }
       }
     },
+
+    async resetInput() {
+      this.cityInput = '';
+    },
+
     async getHistory() {
       console.log('getHistory function is running');
       try {
@@ -96,16 +104,48 @@ export default {
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #42b983;
+  color: white;
+  cursor: pointer;
+}
+
+button.reset {
+  background-color: #f39c12;
+  margin-left: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
 }
 </style>
